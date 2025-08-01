@@ -3,41 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Details Email Form</title>
+    <title>Employee Work Details Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 16px;
+        }
+
+        .work-summary {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .summary-title::before {
+            content: "📊";
+            margin-right: 8px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .summary-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "📧";
+            margin-right: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-input:read-only {
+            background: #f7fafc;
+            color: #4a5568;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            color: #22543d;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <form name="work-details" method="POST" data-netlify="true" data-netlify-recaptcha="true" hidden>
-        <input type="email" name="recipient-email" />
-        <input type="text" name="employee-name" />
-        <input type="text" name="employee-id" />
-        <input type="text" name="work-date" />
-        <input type="text" name="check-in-time" />
-        <input type="text" name="check-out-time" />
-        <input type="text" name="work-duration" />
-        <input type="text" name="location" />
-        <input type="text" name="status" />
-        <div data-netlify-recaptcha="true"></div>
-        <button type="submit">Send</button>
-    </form>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🏢</div>
+            <h1 class="title">Work Details Report</h1>
+            <p class="subtitle">Employee attendance and work summary</p>
+        </div>
 
-    <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
-        <h1>🏢 Employee Work Details Form</h1>
-        <p>This form is used by the Employee Login App to send work details via email.</p>
-        <p>Form submissions are automatically processed and sent to the specified recipient.</p>
-        
-        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3>📧 Email Template Preview:</h3>
-            <div style="text-align: left; background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
-                <strong>Subject:</strong> Work Details Report - [Employee Name]<br><br>
-                <strong>Employee:</strong> [Employee Name] ([Employee ID])<br>
-                <strong>Date:</strong> [Work Date]<br>
-                <strong>Check In:</strong> [Check In Time]<br>
-                <strong>Check Out:</strong> [Check Out Time]<br>
-                <strong>Duration:</strong> [Work Duration]<br>
-                <strong>Location:</strong> [Location]<br>
-                <strong>Status:</strong> [Status]<br>
+        <div class="work-summary">
+            <div class="summary-title">Today's Work Summary</div>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-label">Employee</span>
+                    <span class="summary-value" id="display-employee">--</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Date</span>
+                    <span class="summary-value" id="display-date">--</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Check In</span>
+                    <span class="summary-value" id="display-checkin">--</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Check Out</span>
+                    <span class="summary-value" id="display-checkout">--</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Duration</span>
+                    <span class="summary-value" id="display-duration">--</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Location</span>
+                    <span class="summary-value" id="display-location">--</span>
+                </div>
             </div>
         </div>
+
+        <form name="work-details-report" method="POST" data-netlify="true" id="workForm">
+            <div class="form-section">
+                <div class="section-title">Send Report via Email</div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="recipient-email">Recipient Email Address</label>
+                    <input type="email" id="recipient-email" name="recipient-email" class="form-input" 
+                           placeholder="Enter email address to send report" required>
+                </div>
+
+                <!-- Hidden fields for work details -->
+                <input type="hidden" name="employee-name" id="employee-name">
+                <input type="hidden" name="employee-id" id="employee-id">
+                <input type="hidden" name="work-date" id="work-date">
+                <input type="hidden" name="check-in-time" id="check-in-time">
+                <input type="hidden" name="check-out-time" id="check-out-time">
+                <input type="hidden" name="work-duration" id="work-duration">
+                <input type="hidden" name="location" id="location">
+                <input type="hidden" name="status" id="status">
+            </div>
+
+            <button type="submit" class="submit-btn">
+                📧 Send Work Report
+            </button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            ✅ Work report has been sent successfully!
+        </div>
     </div>
+
+    <script>
+        // Get URL parameters and populate form
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                employeeName: urlParams.get('employee-name') || '--',
+                employeeId: urlParams.get('employee-id') || '--',
+                workDate: urlParams.get('work-date') || '--',
+                checkInTime: urlParams.get('check-in-time') || '--',
+                checkOutTime: urlParams.get('check-out-time') || '--',
+                workDuration: urlParams.get('work-duration') || '--',
+                location: urlParams.get('location') || '--',
+                status: urlParams.get('status') || '--'
+            };
+        }
+
+        // Populate form with URL parameters
+        function populateForm() {
+            const params = getUrlParams();
+            
+            // Update display values
+            document.getElementById('display-employee').textContent = params.employeeName + ' (' + params.employeeId + ')';
+            document.getElementById('display-date').textContent = params.workDate;
+            document.getElementById('display-checkin').textContent = params.checkInTime;
+            document.getElementById('display-checkout').textContent = params.checkOutTime;
+            document.getElementById('display-duration').textContent = params.workDuration;
+            document.getElementById('display-location').textContent = params.location;
+            
+            // Update hidden form fields
+            document.getElementById('employee-name').value = params.employeeName;
+            document.getElementById('employee-id').value = params.employeeId;
+            document.getElementById('work-date').value = params.workDate;
+            document.getElementById('check-in-time').value = params.checkInTime;
+            document.getElementById('check-out-time').value = params.checkOutTime;
+            document.getElementById('work-duration').value = params.workDuration;
+            document.getElementById('location').value = params.location;
+            document.getElementById('status').value = params.status;
+        }
+
+        // Handle form submission
+        document.getElementById('workForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('workForm').style.display = 'none';
+            })
+            .catch((error) => {
+                alert('Error sending report. Please try again.');
+                console.error('Error:', error);
+            });
+        });
+
+        // Initialize form when page loads
+        window.addEventListener('load', populateForm);
+    </script>
 </body>
 </html>
