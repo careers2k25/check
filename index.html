@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Details Email Form</title>
+</head>
+<body>
+    <form name="work-details" method="POST" data-netlify="true" data-netlify-recaptcha="true" hidden>
+        <input type="email" name="recipient-email" />
+        <input type="text" name="employee-name" />
+        <input type="text" name="employee-id" />
+        <input type="text" name="work-date" />
+        <input type="text" name="check-in-time" />
+        <input type="text" name="check-out-time" />
+        <input type="text" name="work-duration" />
+        <input type="text" name="location" />
+        <input type="text" name="status" />
+        <div data-netlify-recaptcha="true"></div>
+        <button type="submit">Send</button>
+    </form>
+
+    <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h1>🏢 Employee Work Details Form</h1>
+        <p>This form is used by the Employee Login App to send work details via email.</p>
+        <p>Form submissions are automatically processed and sent to the specified recipient.</p>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3>📧 Email Template Preview:</h3>
+            <div style="text-align: left; background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                <strong>Subject:</strong> Work Details Report - [Employee Name]<br><br>
+                <strong>Employee:</strong> [Employee Name] ([Employee ID])<br>
+                <strong>Date:</strong> [Work Date]<br>
+                <strong>Check In:</strong> [Check In Time]<br>
+                <strong>Check Out:</strong> [Check Out Time]<br>
+                <strong>Duration:</strong> [Work Duration]<br>
+                <strong>Location:</strong> [Location]<br>
+                <strong>Status:</strong> [Status]<br>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
